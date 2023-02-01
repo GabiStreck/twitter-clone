@@ -4,5 +4,8 @@ node_modules
 .nitro
 .cache
 .output
-.env
 dist
+package-lock.json
+
+strapi/node_modules
+strapi/package-lock.json
