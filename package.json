@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/types": "^2.15.8",
+    "@nuxt/typescript-build": "^2.1.0",
+    "@nuxtjs/strapi": "^1.7.1",
+    "@nuxtjs/tailwindcss": "^6.3.0",
+    "nuxt": "^3.1.0"
+  },
+  "dependencies": {
+    "@heroicons/vue": "^2.0.14",
+    "@nuxtjs/axios": "^5.13.6",
+    "@pinia/nuxt": "^0.4.6",
+    "flowbite": "^1.6.3",
+    "pinia": "^2.0.29",
+    "postcss-custom-properties": "^13.1.1"
+  },
+  "overrides": {
+    "vue": "latest"
+  }
+}
