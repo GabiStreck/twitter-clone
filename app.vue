@@ -1,7 +1,8 @@
 <template>
-    <div :class="{ 'dark': darkMode }">
+    <div :class="{ 'dark': darkStore.darkMode }">
         <div class="bg-white dark:bg-dim-900">
-            <div clas="min-h-full">
+            <LoadingPage v-if="loadingPage" />
+            <div v-else-if="authStore.user" class="min-h-full">
                 <div class="grid grid-cols-12 mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:gap-5">
                     <div class="hidden md:block xs-col-span-1 xl:col-span-2">
                         <div class="sticky top-0">
@@ -21,9 +22,21 @@
                 </div>
             </div>
 
+            <AuthPage v-else />
         </div>
     </div>
 </template>
+
 <script setup lang="ts">
-const darkMode = ref(false)
+import useDarkModeStore from '@/store/useDarkModeStore'
+import useAuthStore from '@/store/useAuthStore'
+import useAuth from '@/composables/useAuth'
+
+const darkStore = useDarkModeStore()
+const authStore = useAuthStore()
+const { init, loadingPage } = useAuth()
+
+onBeforeMount(async () => {
+    await init()
+})
 </script>

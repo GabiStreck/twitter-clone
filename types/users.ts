@@ -1,7 +1,27 @@
 
-export type User = {
-    id?: string;
-    name: string;
-    handle: string;
-    image: string;
+type User = {
+    id?: number | undefined;
+    username?: string | undefined;
+    email?: string | undefined;
+    provider?: string | undefined;
+    confirmed?: boolean | undefined;
+    blocked?: boolean | undefined;
+    createdAt?: string | undefined;
+    updatedAt?: string | undefined;
+    lastName?: string | undefined;
+    firstName?: string | undefined;
+    image?: string | undefined;
+}
+
+type userSignUp = {
+    username: string;
+    password: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+}
+
+type userSignIn = {
+    identifier: string;
+    password: string;
 }

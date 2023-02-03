@@ -5,7 +5,7 @@
         </label>
         <input :value="modelValue"
             @input="event => emits('update:modelValue', (event.target as HTMLInputElement).value)"
-            class="w-full  block px-4 rounded-full focus:ring-blue-500 h-10 focus:border-blue-500 sm:text-sm shadow-sm"
+            class="w-full block px-4 rounded-full focus:ring-blue-500 h-10 focus:border-blue-500 sm:text-sm shadow-sm"
             :placeholder="placeholder" :require="require" :type="type">
     </div>
 </template>
