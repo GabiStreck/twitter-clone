@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { HomeIcon } from '@heroicons/vue/24/solid'
 import {
-    HashtagIcon, BellIcon, BookmarkIcon, InboxIcon,
+    HashtagIcon, BellIcon, BookmarkIcon, InboxIcon, PowerIcon,
     DocumentTextIcon, UserIcon, EllipsisHorizontalCircleIcon
 } from '@heroicons/vue/24/outline'
 import useDarkModeStore from '@/store/useDarkModeStore'
+import useAuth from '~~/composables/useAuth';
+
 const { setDarkMode } = useDarkModeStore()
 const { transition } = useTailwindConfig()
+const { logout } = useAuth()
 </script>
 
 <template>
@@ -17,72 +20,76 @@ const { transition } = useTailwindConfig()
             </div>
         </div>
         <div>
-            <LazySideBarLinkButton href="/">
+            <SideBarLinkButton href="/">
                 <template v-slot:icon>
                     <HomeIcon />
                 </template>
                 <template v-slot:name>
                     Home
                 </template>
-            </LazySideBarLinkButton>
-            <LazySideBarLinkButton href="/explore">
+            </SideBarLinkButton>
+            <SideBarLinkButton href="/explore">
                 <template v-slot:icon>
                     <HashtagIcon />
                 </template>
                 <template v-slot:name>
                     Explore
                 </template>
-            </LazySideBarLinkButton>
-            <LazySideBarLinkButton href="/notification">
+            </SideBarLinkButton>
+            <SideBarLinkButton href="/notification">
                 <template v-slot:icon>
                     <BellIcon />
                 </template>
                 <template v-slot:name>
                     Notification
                 </template>
-            </LazySideBarLinkButton>
-            <LazySideBarLinkButton href="/messages">
+            </SideBarLinkButton>
+            <SideBarLinkButton href="/messages">
                 <template v-slot:icon>
                     <InboxIcon />
                 </template>
                 <template v-slot:name>
                     Messages
                 </template>
-            </LazySideBarLinkButton>
-            <LazySideBarLinkButton href="/bootmarks">
+            </SideBarLinkButton>
+            <SideBarLinkButton href="/bootmarks">
                 <template v-slot:icon>
                     <BookmarkIcon />
                 </template>
                 <template v-slot:name>
                     Bookmarks
                 </template>
-            </LazySideBarLinkButton>
+            </SideBarLinkButton>
 
-            <LazySideBarLinkButton href="/lists">
+            <SideBarLinkButton href="/lists">
                 <template v-slot:icon>
                     <DocumentTextIcon />
                 </template>
                 <template v-slot:name>
                     Lists
                 </template>
-            </LazySideBarLinkButton>
-            <LazySideBarLinkButton href="/profile">
+            </SideBarLinkButton>
+            <SideBarLinkButton href="/profile">
                 <template v-slot:icon>
                     <UserIcon />
                 </template>
                 <template v-slot:name>
                     Profile
                 </template>
-            </LazySideBarLinkButton>
-            <LazySideBarLinkButton href="/more">
+            </SideBarLinkButton>
+            <SideBarLinkButton href="/more">
                 <template v-slot:icon>
                     <EllipsisHorizontalCircleIcon />
                 </template>
                 <template v-slot:name>
                     More
                 </template>
-            </LazySideBarLinkButton>
+            </SideBarLinkButton>
+        </div>
+        <div class="flex items-center p-3 w-min cursor-pointer" @click="logout">
+            <PowerIcon class="w-6 h-6 text-red-400" />
+
+            <span class="hidden ml-4 text-xl xl:block text-red-400 ">Logout</span>
         </div>
     </div>
 </template>
-

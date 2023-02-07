@@ -5,8 +5,8 @@
             <MenuItem v-for="tweet in tweets" :key="tweet.id">
             <template v-slot:contein>
                 <div class="flex flex-col">
-                    <div class="font-bold text-sm">{{ tweet.title }}</div>
-                    <div class="text-xs text-gray-400">{{ useTweetNumberFormatting(tweet.numberOfTweets) }}
+                    <div class="font-bold text-sm">{{ tweet.author.username }}</div>
+                    <div class="text-xs text-gray-400">{{ useTweetNumberFormatting(tweet.repliesCount) }}
                         tweets
                     </div>
                 </div>
@@ -17,7 +17,8 @@
         <Menu title="Who to Follow" v-if="tweets">
             <MenuItem v-for="user in follows" :key="user.id">
             <template v-slot:contein>
-                <UserAvatar :name="user.name" :image="user.image" :handle="user.handle" />
+                <UserAvatar :name="`${user.firstName} ${user.lastName}`" :image="user.image"
+                    :username="user.username" />
             </template>
             <template v-slot:actions>
                 <div class="font-bold text-sm ">
@@ -36,9 +37,9 @@
 import { Tweet } from '~~/types/tweets';
 import { User } from '~~/types/users';
 import { useTweetNumberFormatting } from '@/composables/useFormaters'
-import { useTweets } from '@/composables/useTweets'
+import useTweets from '@/composables/useTweets'
 import { useUsers } from '@/composables/useUsers'
 
-const tweets = <Tweet[]>useTweets()
+const tweets: Tweet[] = []
 const follows = <User[]>useUsers()
 </script>

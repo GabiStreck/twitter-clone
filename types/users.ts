@@ -1,5 +1,5 @@
 
-type User = {
+export type User = {
     id?: number | undefined;
     username?: string | undefined;
     email?: string | undefined;
@@ -13,7 +13,7 @@ type User = {
     image?: string | undefined;
 }
 
-type userSignUp = {
+export type UserSignUp = {
     username: string;
     password: string;
     email: string;
@@ -21,7 +21,7 @@ type userSignUp = {
     lastName: string;
 }
 
-type userSignIn = {
+export type UserSignIn = {
     identifier: string;
     password: string;
 }

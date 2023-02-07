@@ -38,13 +38,14 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue';
+import { UserSignUp } from '~/types/users'
 import useAuth from '~~/composables/useAuth';
 
 defineProps<{
     selectForm: (value: string) => {} | null | undefined
 }>()
 
-const data = reactive<userSignUp>({
+const data = reactive<UserSignUp>({
     username: "",
     password: "",
     email: "",

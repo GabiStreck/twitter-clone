@@ -1,5 +1,5 @@
 import useAuthStore from "~~/store/useAuthStore";
-
+import { UserSignIn, UserSignUp } from "~~/types/users";
 const useAuth = () => {
     const { setAuth, clearAuth, user, auth } = useAuthStore()
     const loadingPage = useState('auth_loading', () => true)
@@ -9,7 +9,7 @@ const useAuth = () => {
         authLoading.value = value
     }
 
-    const signIn = (data: userSignIn) => {
+    const signIn = (data: UserSignIn) => {
         return new Promise(async (resolve, reject) => {
             try {
                 setLoadingPage(true)
@@ -31,7 +31,7 @@ const useAuth = () => {
         })
     }
 
-    const signUp = (data: userSignUp) => {
+    const signUp = (data: UserSignUp) => {
         return new Promise(async (resolve, reject) => {
             try {
                 setLoadingPage(true)
