@@ -15,11 +15,11 @@ const useAuth = () => {
                 setLoadingPage(true)
                 const { login } = useStrapiAuth()
                 const { jwt, user } = await login(data)
+                const userData = await useStrapi().findOne('users', user?.value?.id, { populate: '*' })
+
                 setAuth({
                     jwt: jwt,
-                    user: {
-                        ...user.value
-                    }
+                    user: userData
                 })
                 resolve(true)
             } catch (error) {

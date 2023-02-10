@@ -1,7 +1,7 @@
 <template>
-    <div class="flex space-x-4 h-32 p-2">
+    <div class="flex space-x-4 p-2">
         <div class="flex h-full justify-center w-16">
-            <UserAvatar :image="userStore.user.image" />
+            <UserAvatar :image="userStore.user.image?.url" />
         </div>
         <div class="flex flex-col w-full space-y-2">
             <textarea placeholder="What's happening?" name="text" v-model="data.text"
@@ -47,21 +47,23 @@ const userStore = useAuthStore()
 const { borderColor } = useTailwindConfig()
 const { createTweet } = useTweets()
 
-const emitTweet = defineEmits(['onSubmit'])
 const imageRef = ref()
 const imageUrl = ref()
 const isDisabled = computed(() => data.text === '')
+const { reply } = defineProps<{
+    reply?: string
+}>()
 
 const data = reactive<TweetForm>({
     text: '',
     mediaFiles: undefined,
-    author: userStore.user.id
+    author: userStore.user.id,
+    reply: reply
 })
 
 const onSubmit = async () => {
     await createTweet(data)
 }
-
 
 const onFindImage = (): void => {
     imageRef.value.click()

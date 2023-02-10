@@ -10,7 +10,7 @@ export type User = {
     updatedAt?: string | undefined;
     lastName?: string | undefined;
     firstName?: string | undefined;
-    image?: string | undefined;
+    image?: any | undefined;
 }
 
 export type UserSignUp = {

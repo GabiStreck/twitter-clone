@@ -6,7 +6,7 @@
             <template v-slot:contein>
                 <div class="flex flex-col">
                     <div class="font-bold text-sm">{{ tweet.author.username }}</div>
-                    <div class="text-xs text-gray-400">{{ useTweetNumberFormatting(tweet.repliesCount) }}
+                    <div class="text-xs text-gray-400">{{ useTweetNumberFormatting(tweet?.repliesCount || 0) }}
                         tweets
                     </div>
                 </div>
