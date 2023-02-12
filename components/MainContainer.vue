@@ -1,5 +1,5 @@
 <template>
-    <main class="w-full h-full">
+    <main class="w-full h-full min-h-screen">
         <header class="h-14 font-bold text-lg pl-5 flex items-center dark:text-white" v-if="title">{{ title }}</header>
         <section class="">
             <slot />

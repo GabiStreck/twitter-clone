@@ -1,5 +1,5 @@
 import useAuthStore from "~~/store/useAuthStore";
-import { UserSignIn, UserSignUp } from "~~/types/users";
+import { User, UserSignIn, UserSignUp } from "~~/types/users";
 const useAuth = () => {
     const { setAuth, clearAuth, user, auth } = useAuthStore()
     const loadingPage = useState('auth_loading', () => true)
@@ -19,6 +19,7 @@ const useAuth = () => {
 
                 setAuth({
                     jwt: jwt,
+                    /* @ts-ignore */
                     user: userData
                 })
                 resolve(true)
@@ -34,14 +35,37 @@ const useAuth = () => {
     const signUp = (data: UserSignUp) => {
         return new Promise(async (resolve, reject) => {
             try {
+
+                if (Object.keys(data).length == 0) return
                 setLoadingPage(true)
                 const { register } = useStrapiAuth()
+                /* @ts-ignore */
                 const { jwt, user } = await register(data)
+                let userData: User = {
+                    ...user.value
+                }
+
+                if (data.image && user) {
+                    try {
+                        const formData = new FormData()
+                        formData.append('files', data.image)
+                        /* @ts-ignore */
+                        formData.append('refId', userData.id);
+                        formData.append('ref', 'plugin::users-permissions.user');
+                        formData.append('field', 'image');
+                        const client = useStrapiClient()
+                        const result: any[] = await client(`/upload`, {
+                            method: 'POST',
+                            body: formData,
+                        })
+                        userData['image'] = result[0]
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
                 setAuth({
                     jwt: jwt,
-                    user: {
-                        ...user.value
-                    }
+                    user: userData
                 })
                 resolve(true)
             } catch (error) {

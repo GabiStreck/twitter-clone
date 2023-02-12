@@ -17,7 +17,7 @@
         <Menu title="Who to Follow" v-if="follows?.length">
             <MenuItem v-for="user in follows" :key="user.id">
             <template v-slot:contein>
-                <UserAvatar :name="`${user.firstName ?? ''} ${user.lastName ?? ''}`" :image="user.image"
+                <UserAvatar :name="`${user.firstName ?? ''} ${user.lastName ?? ''}`" :image="user.image?.url"
                     :username="user.username" />
             </template>
             <template v-slot:actions>

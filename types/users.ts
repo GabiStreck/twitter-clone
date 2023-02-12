@@ -19,6 +19,7 @@ export type UserSignUp = {
     email: string;
     firstName: string;
     lastName: string;
+    image: File | null
 }
 
 export type UserSignIn = {

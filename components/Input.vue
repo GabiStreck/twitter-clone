@@ -1,6 +1,6 @@
 <template>
     <div>
-        <label for="" v-if="label" class="text-sm text-gray-700 block ml-px pl-1 mb-1 font-medium">
+        <label for="" v-if="label" class="text-sm text-gray-700 block ml-px pl-1 mb-1 font-medium dark:text-gray-300">
             {{ label }}
         </label>
         <input :value="modelValue"

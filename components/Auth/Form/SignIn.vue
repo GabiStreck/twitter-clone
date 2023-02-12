@@ -4,7 +4,7 @@
             <div class="w-24 h-24">
                 <Logo />
             </div>
-            <h1 class="text-2xl font-bold">Sign in to your account</h1>
+            <h1 class="text-2xl font-bold dark:text-white">Sign in to your account</h1>
         </div>
         <div class="flex flex-col space-y-6 pt-8">
             <div>
@@ -15,7 +15,8 @@
             </div>
         </div>
         <div class="flex items-center justify-between">
-            <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
+            <a href="#"
+                class="dark:text-white text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
                 Forgot password?
             </a>
         </div>
