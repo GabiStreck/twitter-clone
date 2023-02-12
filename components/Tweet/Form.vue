@@ -1,7 +1,7 @@
 <template>
     <div class="flex space-x-4 p-2">
         <div class="flex h-full justify-center w-16">
-            <UserAvatar :image="userStore.user.image?.url" />
+            <UserAvatar :image="userStore.user?.image?.url" />
         </div>
         <div class="flex flex-col w-full space-y-2">
             <textarea placeholder="What's happening?" name="text" v-model="data.text"
@@ -46,10 +46,11 @@ import { TweetForm } from '~~/types/tweets';
 const userStore = useAuthStore()
 const { borderColor } = useTailwindConfig()
 const { createTweet } = useTweets()
-
+const emits = defineEmits(['onSuccess'])
 const imageRef = ref()
 const imageUrl = ref()
 const isDisabled = computed(() => data.text === '')
+
 const { reply } = defineProps<{
     reply?: string
 }>()
@@ -57,16 +58,25 @@ const { reply } = defineProps<{
 const data = reactive<TweetForm>({
     text: '',
     mediaFiles: undefined,
-    author: userStore.user.id,
+    /* @ts-ignore */
+    author: userStore.user?.id,
     reply: reply
 })
 
 const onSubmit = async () => {
-    await createTweet(data)
+    const result = await createTweet(data)
+    emits('onSuccess', result)
+    cleaForm()
 }
 
 const onFindImage = (): void => {
     imageRef.value.click()
+}
+
+const cleaForm = () => {
+    data.text = ''
+    data.mediaFiles = undefined
+    imageUrl.value = undefined
 }
 
 const onSelectImage = (files: FileList | null): void => {
@@ -74,7 +84,6 @@ const onSelectImage = (files: FileList | null): void => {
         const file = files[0];
         data.mediaFiles = file
         imageUrl.value = URL.createObjectURL(file)
-
     }
 }
 </script>

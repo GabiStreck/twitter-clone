@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col p-2 gap-2">
 
-        <Menu title="What's happening" v-if="tweets">
+        <Menu title="What's happening" v-if="tweets?.length">
             <MenuItem v-for="tweet in tweets" :key="tweet.id">
             <template v-slot:contein>
                 <div class="flex flex-col">
@@ -14,15 +14,15 @@
             </MenuItem>
         </Menu>
 
-        <Menu title="Who to Follow" v-if="tweets">
+        <Menu title="Who to Follow" v-if="follows?.length">
             <MenuItem v-for="user in follows" :key="user.id">
             <template v-slot:contein>
-                <UserAvatar :name="`${user.firstName} ${user.lastName}`" :image="user.image"
+                <UserAvatar :name="`${user.firstName ?? ''} ${user.lastName ?? ''}`" :image="user.image"
                     :username="user.username" />
             </template>
             <template v-slot:actions>
                 <div class="font-bold text-sm ">
-                    <Button :onClick="() => { }">
+                    <Button size="sm" :onClick="() => onFollow(user.id)">
                         Follow
                     </Button>
                 </div>
@@ -35,11 +35,22 @@
 
 <script setup lang="ts">
 import { Tweet } from '~~/types/tweets';
-import { User } from '~~/types/users';
 import { useTweetNumberFormatting } from '@/composables/useFormaters'
-import useTweets from '@/composables/useTweets'
-import { useUsers } from '@/composables/useUsers'
+import useFollows from '@/composables/useFollows'
 
+const { getFollowers, createFollow } = useFollows()
+const follows = ref()
 const tweets: Tweet[] = []
-const follows = <User[]>useUsers()
+
+const onFollow = async (id: string | number) => {
+    const success = await createFollow(id)
+    if (success) {
+        window.location.reload()
+    }
+}
+
+onBeforeMount(async () => {
+    const data = await getFollowers()
+    follows.value = data
+})
 </script>

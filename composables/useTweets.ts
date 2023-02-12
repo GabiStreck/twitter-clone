@@ -19,11 +19,24 @@ const useTweets = () => {
             }
             formData.append('data', JSON.stringify(data))
             const client = useStrapiClient()
-            const result = await client<Tweet>(`/tweets`, {
+
+            const result = await client<{ data: TweetListResponse }>(`/tweets`, {
                 method: 'POST',
-                body: formData
+                body: formData,
             })
-            resolve(result)
+            if (data.reply) {
+                await client<{ entry: Tweet }>('/updateRepliesCount', {
+                    method: 'PATCH',
+                    body: {
+                        id: data.reply
+                    }
+                })
+            }
+
+            /* @ts-ignore */
+            const tweet: { data: Tweet } = await useStrapi4()
+                .findOne<{ data: TweetListResponse }>('tweets', result.data.id)
+            resolve(tweet.data)
         } catch (error) {
             reject(error)
         } finally {
@@ -47,22 +60,7 @@ const useTweets = () => {
                     }
                 })
                 /* @ts-ignore */
-                const tweets = data?.map((item: TweetListResponse) => {
-                    const tweet = item.attributes
-                    return {
-                        ...tweet,
-                        author: tweet.author.data.attributes,
-                        reply: tweet.reply?.data?.attributes ? {
-                            ...tweet.reply?.data?.attributes,
-                            id: tweet.reply?.data?.id,
-                            author: {
-                                ...tweet.reply?.data?.attributes.author.data.attributes,
-                                id: tweet.reply?.data?.attributes.author.data.id
-                            }
-                        } : null
-                    }
-                })
-                resolve(tweets)
+                resolve(data)
             } catch (error) {
                 reject(error)
             } finally {
@@ -70,18 +68,19 @@ const useTweets = () => {
             }
         })
 
-    const getTweetDetail = async (id: string): Promise<TweetDetailResponse> => new Promise(async (resolve, reject) => {
-        try {
-            setLoading(true)
-            /* @ts-ignore */
-            const { data } = await useStrapi4().find('findReplies', { id: id })
-            resolve(data.attributes)
-        } catch (error) {
-            reject(error)
-        } finally {
-            setLoading(false)
-        }
-    })
+    const getTweetDetail = async (id: string): Promise<TweetDetailResponse> =>
+        new Promise(async (resolve, reject) => {
+            try {
+                setLoading(true)
+                /* @ts-ignore */
+                const { data } = await useStrapi4().find('findReplies', { id: id })
+                resolve(data.attributes)
+            } catch (error) {
+                reject(error)
+            } finally {
+                setLoading(false)
+            }
+        })
 
     return {
         loading,

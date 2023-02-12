@@ -1,10 +1,13 @@
 <template>
     <MainContainer title="Tweet">
-        <Loading v-if="loading" />
-        <div v-else class="border divide-y rounded-xl" :class="borderColor">
+        <Loading v-if="loading && !replies" />
+        <div v-if="replies" class="border divide-y rounded-xl" :class="borderColor">
             <TweetListItem v-if="tweet" :tweet="tweet" />
-            <div class="pl-12 py-2" v-if="tweet">
-                <TweetForm :reply="tweet" />
+            <div class="pl-12 py-2 " v-if="tweet">
+                <TweetForm :reply="tweet" @on-success="onSuccess" />
+                <div class="my-2">
+                    <Loading v-if="loading" />
+                </div>
             </div>
             <TweetList :tweets="replies" :isReply="true" />
         </div>
@@ -14,6 +17,7 @@
 <script setup lang="ts">
 import useTweets from '@/composables/useTweets';
 import useTailwindConfig from '@/composables/useTailwindConfig';
+import { Tweet } from '~~/types/tweets';
 const { borderColor } = useTailwindConfig()
 const { getTweetDetail, loading } = useTweets()
 const tweet = ref()
@@ -24,15 +28,15 @@ useHead({
 })
 
 onBeforeMount(async () => {
-    const { params } = useRoute();
+    const id = window.location.pathname.split('/').pop()
 
-    if (params.id) {
-        /* @ts-ignore */
-        const data: TweetDetailResponse = await getTweetDetail(params.id)
-        tweet.value = data.tweet
-        replies.value = data.replies
-    } else {
-        window.location.reload()
-    }
+    /* @ts-ignore */
+    const data: TweetDetailResponse = await getTweetDetail(id)
+    tweet.value = data.tweet
+    replies.value = data.replies
 })
+
+const onSuccess = (data: Tweet) => {
+    replies.value = [data, ...replies.value]
+}
 </script>

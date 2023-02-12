@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { User } from '~~/types/users'
 interface Auth {
     jwt: string,
     user: User | undefined

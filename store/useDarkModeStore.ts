@@ -8,7 +8,8 @@ const useDarkModeStore = defineStore('darkMode', {
         setDarkMode() {
             this.darkMode = !this.darkMode
         }
-    }
+    },
+    persist: true
 })
 
 export default useDarkModeStore

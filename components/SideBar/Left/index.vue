@@ -28,7 +28,7 @@ const { logout } = useAuth()
                     Home
                 </template>
             </SideBarLinkButton>
-            <SideBarLinkButton href="/explore">
+            <SideBarLinkButton href="#">
                 <template v-slot:icon>
                     <HashtagIcon />
                 </template>
@@ -36,7 +36,7 @@ const { logout } = useAuth()
                     Explore
                 </template>
             </SideBarLinkButton>
-            <SideBarLinkButton href="/notification">
+            <SideBarLinkButton href="#">
                 <template v-slot:icon>
                     <BellIcon />
                 </template>
@@ -44,7 +44,7 @@ const { logout } = useAuth()
                     Notification
                 </template>
             </SideBarLinkButton>
-            <SideBarLinkButton href="/messages">
+            <SideBarLinkButton href="#">
                 <template v-slot:icon>
                     <InboxIcon />
                 </template>
@@ -52,7 +52,7 @@ const { logout } = useAuth()
                     Messages
                 </template>
             </SideBarLinkButton>
-            <SideBarLinkButton href="/bootmarks">
+            <SideBarLinkButton href="#">
                 <template v-slot:icon>
                     <BookmarkIcon />
                 </template>
@@ -61,7 +61,7 @@ const { logout } = useAuth()
                 </template>
             </SideBarLinkButton>
 
-            <SideBarLinkButton href="/lists">
+            <SideBarLinkButton href="#">
                 <template v-slot:icon>
                     <DocumentTextIcon />
                 </template>
@@ -69,7 +69,7 @@ const { logout } = useAuth()
                     Lists
                 </template>
             </SideBarLinkButton>
-            <SideBarLinkButton href="/profile">
+            <SideBarLinkButton href="#">
                 <template v-slot:icon>
                     <UserIcon />
                 </template>
@@ -77,7 +77,7 @@ const { logout } = useAuth()
                     Profile
                 </template>
             </SideBarLinkButton>
-            <SideBarLinkButton href="/more">
+            <SideBarLinkButton href="#">
                 <template v-slot:icon>
                     <EllipsisHorizontalCircleIcon />
                 </template>
