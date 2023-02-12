@@ -22,7 +22,7 @@ https://user-images.githubusercontent.com/39699923/218328758-6bb6023c-4a6d-404e-
 
 <h4>Client</h4>
 <ul>
-  <li><a href="https://#/">TypeScript</a></li>
+  <li><a href="https://www.typescriptlang.org/">TypeScript</a></li>
 
   <li><a href="https://nuxt.com/">Nuxt 3</a></li>
 
